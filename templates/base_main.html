@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'axf/main/css/main.css' %}">
+{% endblock %}
+
+{% block header %}
+    <header></header>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <a href="#" class="home">
+            <dl>
+                <dt>
+                    <span></span>
+                </dt>
+                <dd>首页</dd>
+            </dl>
+        </a>
+    </footer>
 {% endblock %}
