@@ -1,1 +1,7 @@
 {% extends 'base_main.html' %}
+{% load staticfiles %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'axf/main/css/mine.css' %}">
+{% endblock %}
