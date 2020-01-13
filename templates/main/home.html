@@ -18,8 +18,31 @@
                 {% endfor %}
 
             </div>
-            <!-- 如果需要分页器 -->
             <div class="swiper-pagination"></div>
+        </div>
+        {# 首页顶部导航 #}
+        <div class="topMenu">
+            <nav>
+                <ul>
+                    {% for main_nav in main_navs %}
+                        <li>
+                            <img src="{{ main_nav.img }}" alt="{{ main_nav.name }}">
+                            <span>{{ main_nav.name }}</span>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </nav>
+        </div>
+        {# 首页必购 #}
+        <div class="swiper-container" id="swiperMenu">
+            <ul class="swiper-wrapper">
+                {% for main_mustbuy in main_mustbuys %}
+                    <li class="swiper-slide">
+                        <img src="{{ main_mustbuy.img }}" alt="{{ main_mustbuy.name }}">
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 
@@ -28,4 +51,5 @@
 {% block ext_js %}
     {{ block.super }}
     <script type="text/javascript" src="{% static 'js/swiper.jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'axf/main/js/home.js' %}"></script>
 {% endblock %}

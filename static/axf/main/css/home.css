@@ -18,6 +18,7 @@ footer .home dd {
     position: fixed;
 }
 
+/* 顶部轮播 */
 #topSwiper {
     height: 3.95rem;
     width: 10rem;
@@ -35,6 +36,7 @@ footer .home dd {
     height: 100%;
 }
 
+/* 顶部导航 */
 .topMenu {
     padding-bottom: 0.26rem;
 }
@@ -58,6 +60,7 @@ footer .home dd {
     width: 2.5rem;
 }
 
+/* 必购 */
 #swiperMenu {
     width: 100%;
 }
