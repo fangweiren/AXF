@@ -29,3 +29,10 @@ class MainMustBuy(Main):
 
     class Meta:
         db_table = 'axf_mustbuy'
+
+
+class MainShop(Main):
+    """axf_shop(img,name,trackid)"""
+
+    class Meta:
+        db_table = 'axf_shop'

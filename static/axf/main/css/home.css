@@ -73,57 +73,58 @@ footer .home dd {
     width: 100%;
 }
 
-.CVS {
+/* 商店 */
+.shop_container {
     background: white;
 }
 
-.CVS h2 img {
+.shop_container h2 img {
     width: 100%;
 }
 
-.CVS fieldset {
+.shop_container fieldset {
     border: none;
     padding: 0;
 }
 
-.CVS fieldset > a {
+.shop_container fieldset > a {
     display: inline-block;
     width: 49%;
 }
 
-.CVS fieldset img {
+.shop_container fieldset img {
     width: 100%;
 }
 
-.CVS ul {
+.shop_container ul {
     display: flex;
 }
 
-.CVS ul li {
+.shop_container ul li {
     width: 2.5rem;
     text-align: center;
     font-size: 0.35rem;
 }
 
-.CVS ul li img {
+.shop_container ul li img {
     width: 2.5rem;
 }
 
-.CVS ol {
+.shop_container ol {
     display: flex;
     flex-wrap: wrap;
 }
 
-.CVS ol li {
+.shop_container ol li {
     list-style: none;
     width: 5rem;
 }
 
-.CVS > ol a {
+.shop_container > ol a {
     display: block;
 }
 
-.CVS ol a img {
+.shop_container ol a img {
     width: 100%;
 }
 
