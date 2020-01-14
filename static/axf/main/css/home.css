@@ -128,6 +128,7 @@ footer .home dd {
     width: 100%;
 }
 
+/* 首页主显示 */
 .mainInfo {
     background-color: white;
 }
@@ -182,6 +183,11 @@ footer .home dd {
     display: block;
 }
 
+.mainInfo > section > ul > li > a > span:before {
+    color: red;
+    content: "¥";
+}
+
 .mainInfo > section > ul > li > a > img {
     width: 100%;
 }
@@ -189,6 +195,11 @@ footer .home dd {
 .mainInfo > section > ul > li > a > s {
     color: grey;
     font-size: 0.3rem;
+}
+
+.mainInfo > section > ul > li > a > s:before {
+    color: grey;
+    content: "¥";
 }
 
 .mainInfo .description {

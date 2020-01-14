@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from App.models import MainWheel, MainNav, MainMustBuy, MainShop
+from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow
 
 
 def home(request):
@@ -15,6 +15,8 @@ def home(request):
     main_shop3_7 = main_shops[3:7]
     main_shop7_11 = main_shops[7:11]
 
+    main_shows = MainShow.objects.all()
+
     data = {
         "title": "首页",
         "main_wheels": main_wheels,
@@ -24,6 +26,7 @@ def home(request):
         "main_shop1_3": main_shop1_3,
         "main_shop3_7": main_shop3_7,
         "main_shop7_11": main_shop7_11,
+        "main_shows": main_shows,
     }
     return render(request, 'main/home.html', context=data)
 
