@@ -12,7 +12,7 @@ function initTopSwiper() {
 }
 
 function initSwiperMenu() {
-    var swiper = new Swiper("#topSwiper", {
+    var swiper = new Swiper("#swiperMenu", {
         slidesPerView: 3
     });
 }

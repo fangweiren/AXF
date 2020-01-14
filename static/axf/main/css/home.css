@@ -36,6 +36,10 @@ footer .home dd {
     height: 100%;
 }
 
+#topSwiper .swiper-slide {
+    width: 100% !important;
+}
+
 /* 顶部导航 */
 .topMenu {
     padding-bottom: 0.26rem;
@@ -117,7 +121,7 @@ footer .home dd {
 
 .shop_container ol li {
     list-style: none;
-    width: 5rem;
+    width: 4.99rem;
 }
 
 .shop_container > ol a {
