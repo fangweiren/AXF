@@ -63,12 +63,13 @@ aside ul li a {
 
 div > section {
     background-color: #fafafa;
-    width: 7.5rem;
+    width: 7.49rem;
     float: right;
     position: relative;
     height: 100%;
     overflow: auto;
     padding: 1.4rem 0 0;
+    clear: none;
 }
 
 
@@ -139,7 +140,7 @@ section menu ul li a img {
 }
 
 
-/**************************article***********************/
+/* 商品详细信息 */
 .shoppingInfo {
     width: 4.6rem;
     float: right;
@@ -194,10 +195,19 @@ section menu ul li a img {
     color: red;
 }
 
+.price > span:before {
+    color: red;
+    content: "¥";
+}
+
 .price > s {
     color: grey;
 }
 
+.price > s:before {
+    color: grey;
+    content: "¥";
+}
 
 /**添加到购物车****/
 li > section {

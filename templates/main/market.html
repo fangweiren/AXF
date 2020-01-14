@@ -7,7 +7,50 @@
 {% endblock %}
 
 {% block content %}
-    <div>
+    <div id="market">
+        {# 左边的垂直导航 #}
+        <aside>
+            <ul>
+                {% for foodtype in foodtypes %}
+                    <li>
+                        <a href="#">{{ foodtype.typename }}</a>
+                    </li>
+                {% endfor %}
 
+            </ul>
+        </aside>
+
+        <section>
+            <nav>
+                <ul>
+                    <li><span>全部分类<span class="glyphicon glyphicon-chevron-down"></span></span></li>
+                    <li><span>综合排序<span class="glyphicon glyphicon-chevron-down"></span></span></li>
+                </ul>
+            </nav>
+
+            <menu>
+                <ul>
+                    {% for goods in goods_list %}
+                        <li>
+                            <a href="#">
+                                <img src="{{ goods.productimg }}" alt="{{ goods.productlongname }}">
+                                <div class="shoppingInfo">
+                                    <h6>{{ goods.productlongname }}</h6>
+                                    <p class="detailTag">
+                                        <span>精选</span>
+                                        <span></span>
+                                    </p>
+                                    <p class="unit">{{ goods.specifics }}</p>
+                                    <p class="price">
+                                        <span>{{ goods.price }}</span>
+                                        <s>{{ goods.marketprice }}</s>
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </menu>
+        </section>
     </div>
 {% endblock %}
