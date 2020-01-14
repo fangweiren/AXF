@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods
 
@@ -32,13 +33,18 @@ def home(request):
 
 
 def market(request):
+    return redirect(reverse('axf:market_with_params', kwargs={"typeid": 103541}))
+
+
+def market_with_params(request, typeid):
     foodtypes = FoodType.objects.all()
-    goods_list = Goods.objects.all()
+    goods_list = Goods.objects.filter(categoryid=typeid)
 
     data = {
         "title": "闪购",
         "foodtypes": foodtypes,
         "goods_list": goods_list,
+        "typeid": int(typeid),
     }
     return render(request, 'main/market.html', context=data)
 

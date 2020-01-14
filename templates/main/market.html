@@ -13,7 +13,10 @@
             <ul>
                 {% for foodtype in foodtypes %}
                     <li>
-                        <a href="#">{{ foodtype.typename }}</a>
+                        <a href="{% url 'axf:market_with_params' typeid=foodtype.typeid %}">{{ foodtype.typename }}</a>
+                        {% ifequal foodtype.typeid typeid %}
+                            <span class="yellowSlide"></span>
+                        {% endifequal %}
                     </li>
                 {% endfor %}
 
@@ -23,8 +26,8 @@
         <section>
             <nav>
                 <ul>
-                    <li><span>全部分类<span class="glyphicon glyphicon-chevron-down"></span></span></li>
-                    <li><span>综合排序<span class="glyphicon glyphicon-chevron-down"></span></span></li>
+                    <li class="all_types"><span>全部分类<span class="glyphicon glyphicon-chevron-down"></span></span></li>
+                    <li class="sort_rules"><span>综合排序<span class="glyphicon glyphicon-chevron-down"></span></span></li>
                 </ul>
             </nav>
 
@@ -47,10 +50,40 @@
                                     </p>
                                 </div>
                             </a>
+                            <section>
+                                <button>-</button>
+                                <span>2</span>
+                                <button>+</button>
+                            </section>
                         </li>
                     {% endfor %}
                 </ul>
+                <div id="all_types_container">
+                    <div>
+                        <a href="#">
+                            <button class="btn btn-success">全部分类</button>
+                        </a>
+                        <a href="#">
+                            <button class="btn btn-danger">牛奶面包</button>
+                        </a>
+                    </div>
+                </div>
+                <div id="sort_rule_container">
+                    <div>
+                        <a href="#">
+                            <button class="btn btn-success">全部分类</button>
+                        </a>
+                        <a href="#">
+                            <button class="btn btn-danger">牛奶面包</button>
+                        </a>
+                    </div>
+                </div>
             </menu>
         </section>
     </div>
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/main/js/market.js' %}"></script>
 {% endblock %}
