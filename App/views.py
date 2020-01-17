@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods
-from App.views_constant import ALL_TYPE
+from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN
 
 
 def home(request):
@@ -34,14 +34,29 @@ def home(request):
 
 
 def market(request):
-    return redirect(reverse('axf:market_with_params', kwargs={"typeid": 104749, "childcid": 0}))
+    return redirect(reverse('axf:market_with_params', kwargs={
+        "typeid": 104749,
+        "childcid": 0,
+        "order_rule": 0
+    }))
 
 
-def market_with_params(request, typeid, childcid):
+def market_with_params(request, typeid, childcid, order_rule):
     foodtypes = FoodType.objects.all()
     goods_list = Goods.objects.filter(categoryid=typeid)
     if childcid != ALL_TYPE:
         goods_list = goods_list.filter(childcid=childcid)
+
+    if order_rule == ORDER_TOTAL:
+        pass
+    elif order_rule == ORDER_PRICE_UP:
+        goods_list = goods_list.order_by("price")
+    elif order_rule == ORDER_PRICE_DOWN:
+        goods_list = goods_list.order_by("-price")
+    elif order_rule == ORDER_SALE_UP:
+        goods_list = goods_list.order_by("productnum")
+    elif order_rule == ORDER_SALE_DOWN:
+        goods_list = goods_list.order_by("-productnum")
 
     foodtype = foodtypes.get(typeid=typeid)
     foodtypechildnames = foodtype.childtypenames
@@ -51,12 +66,23 @@ def market_with_params(request, typeid, childcid):
     for foodtypechildname in foodtypechildname_list:
         foodtype_childname_list.append(foodtypechildname.split(":"))
 
+    order_rule_list = [
+        ["综合排序", ORDER_TOTAL],
+        ["价格升序", ORDER_PRICE_UP],
+        ["价格降序", ORDER_PRICE_DOWN],
+        ["销量升序", ORDER_SALE_UP],
+        ["销量降序", ORDER_SALE_DOWN],
+    ]
+
     data = {
         "title": "闪购",
         "foodtypes": foodtypes,
         "goods_list": goods_list,
         "typeid": int(typeid),
         "foodtype_childname_list": foodtype_childname_list,
+        "childcid": childcid,
+        "order_rule_view": order_rule,
+        "order_rule_list": order_rule_list,
     }
     return render(request, 'main/market.html', context=data)
 
