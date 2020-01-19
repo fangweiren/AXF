@@ -93,3 +93,15 @@ def cart(request):
 
 def mine(request):
     return render(request, 'main/mine.html')
+
+
+def register(request):
+    if request.method == 'GET':
+        data = {
+            "title": "注册",
+        }
+        return render(request, 'user/register.html', context=data)
+    elif request.method == 'POST':
+        username = request.POST.get("username")
+
+    return None

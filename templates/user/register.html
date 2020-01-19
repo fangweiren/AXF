@@ -1,0 +1,47 @@
+{% extends 'base_user.html' %}
+{% load staticfiles %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'axf/user/css/register.css' %}">
+{% endblock %}
+
+{% block header %}
+    <header>
+
+    </header>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" action="{% url 'axf:register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username_input">用户名</label>
+                <input name="username" type="text" class="form-control" id="username_input" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="email_input">邮箱</label>
+                <input name="email" type="text" class="form-control" id="email_input" placeholder="请输入邮箱">
+            </div>
+            <div class="form-group">
+                <label for="password_input">密码</label>
+                <input name="password" type="password" class="form-control" id="password_input" placeholder="请输入密码">
+            </div>
+            <div class="form-group">
+                <label for="password_confirm_input">确认密码</label>
+                <input name="password2" type="password" class="form-control" id="password_confirm_input" placeholder="请再次输入密码">
+            </div>
+            <div class="form-group">
+                <label for="icon_input">头像</label>
+                <input name="icon" type="file" id="icon_input">
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">注册</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block ext_js %}
+
+{% endblock %}
