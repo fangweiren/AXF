@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods
-from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN
+from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser
+from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
+    HTTP_USER_EXISTS, HTTP_OK
 
 
 def home(request):
@@ -103,5 +104,47 @@ def register(request):
         return render(request, 'user/register.html', context=data)
     elif request.method == 'POST':
         username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        icon = request.FILES.get("icon")
 
-    return None
+        user = AXFUser()
+        user.u_username = username
+        user.u_email = email
+        user.u_password = password
+        user.u_icon = icon
+        user.save()
+
+        return redirect(reverse('axf:login'))
+
+
+def login(request):
+    if request.method == 'GET':
+        data = {
+            "title": "登录",
+        }
+        return render(request, 'user/login.html', context=data)
+
+    elif request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        return HttpResponse("登录成功")
+
+
+def check_user(request):
+    username = request.GET.get('username')
+    user = AXFUser.objects.filter(u_username=username)
+
+    data = {
+        "status": HTTP_OK,
+        "msg": "user can use",
+    }
+
+    if user.exists():
+        data["status"] = HTTP_USER_EXISTS
+        data["msg"] = "user already exists"
+    else:
+        pass
+
+    return JsonResponse(data=data)

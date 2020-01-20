@@ -6,12 +6,6 @@
     <link rel="stylesheet" href="{% static 'axf/user/css/register.css' %}">
 {% endblock %}
 
-{% block header %}
-    <header>
-
-    </header>
-{% endblock %}
-
 {% block content %}
     <div class="container">
         <form method="post" enctype="multipart/form-data" action="{% url 'axf:register' %}">
@@ -43,5 +37,6 @@
 {% endblock %}
 
 {% block ext_js %}
-
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/user/js/register.js' %}"></script>
 {% endblock %}

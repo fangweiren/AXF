@@ -1,0 +1,25 @@
+{% extends 'base_user.html' %}
+{% load staticfiles %}
+
+{% block ext_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form method="post" action="{% url 'axf:login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username_input">用户名</label>
+                <input name="username" type="text" class="form-control" id="username_input" placeholder="用户名/邮箱">
+            </div>
+
+            <div class="form-group">
+                <label for="password_input">密码</label>
+                <input name="password" type="password" class="form-control" id="password_input" placeholder="请输入密码">
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">登录</button>
+        </form>
+    </div>
+{% endblock %}
