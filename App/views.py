@@ -5,6 +5,7 @@ from django.urls import reverse
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser
 from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
     HTTP_USER_EXISTS, HTTP_OK
+from App.views_helper import hash_str
 
 
 def home(request):
@@ -107,6 +108,8 @@ def register(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         icon = request.FILES.get("icon")
+
+        password = hash_str(password)
 
         user = AXFUser()
         user.u_username = username
