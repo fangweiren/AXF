@@ -123,6 +123,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_KEY_PREFIX = '/static/upload/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/upload')
 
 INTERNAL_IPS = [

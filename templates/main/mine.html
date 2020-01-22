@@ -6,20 +6,36 @@
     <link rel="stylesheet" href="{% static 'axf/main/css/mine.css' %}">
 {% endblock %}
 
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/main/js/mine.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div id="mine">
         <div class="fixed">
             <span>
-                <span class="glyphicon glyphicon-user"></span>
+                {% if is_login %}
+                    <img class="u_icon" src="{{ icon }}" alt="{{ username }}">
+                {% else %}
+                    <span class="glyphicon glyphicon-user"></span>
+                {% endif %}
             </span>
 
-            <p>未登录</p>
+            {% if is_login %}
+                <p>{{ username }}</p>
+            {% else %}
+                <p id="not_login">未登录</p>
+            {% endif %}
+
             <p>
                 <span class="glyphicon glyphicon-fire"></span>
                 <span>等级</span>
             </p>
 
-            <div id="regis">注册</div>
+            {% if not is_login %}
+                <div id="regis">注册</div>
+            {% endif %}
 
             <p>
                 <span class="glyphicon glyphicon-heart"></span>
@@ -69,6 +85,56 @@
                     </li>
                 </ul>
             </nav>
+
+            <menu>
+                <ul>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-bullhorn"></span>
+                            </dt>
+                            <dd>积分商城</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-credit-card"></span>
+                            </dt>
+                            <dd>优惠券</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-import"></span>
+                            </dt>
+                            <dd>收货地址</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-phone-alt"></span>
+                            </dt>
+                            <dd>客服/反馈</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                            </dt>
+                            <dd>关于我们</dd>
+                        </dl>
+                    </li>
+                </ul>
+            </menu>
+            {% if is_login %}
+                <p>
+                    <a href="{% url 'axf:logout' %}">退出当前账号</a>
+                </p>
+            {% endif %}
         </div>
 
     </div>

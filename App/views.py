@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from AXF.settings import MEDIA_KEY_PREFIX
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser
 from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
     HTTP_USER_EXISTS, HTTP_OK
@@ -99,9 +100,14 @@ def mine(request):
 
     data = {
         "title": "我的",
+        "is_login": False,
     }
     if user_id:
-        pass
+        user = AXFUser.objects.get(pk=user_id)
+        data["is_login"] = True
+        data["username"] = user.u_username
+        data["icon"] = MEDIA_KEY_PREFIX + user.u_icon.url
+
 
     return render(request, 'main/mine.html', context=data)
 
@@ -174,3 +180,8 @@ def check_user(request):
         pass
 
     return JsonResponse(data=data)
+
+
+def logout(request):
+    request.session.flush()
+    return redirect(reverse('axf:mine'))
