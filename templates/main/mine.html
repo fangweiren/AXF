@@ -5,3 +5,71 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'axf/main/css/mine.css' %}">
 {% endblock %}
+
+{% block content %}
+    <div id="mine">
+        <div class="fixed">
+            <span>
+                <span class="glyphicon glyphicon-user"></span>
+            </span>
+
+            <p>未登录</p>
+            <p>
+                <span class="glyphicon glyphicon-fire"></span>
+                <span>等级</span>
+            </p>
+
+            <div id="regis">注册</div>
+
+            <p>
+                <span class="glyphicon glyphicon-heart"></span>
+                <span>商品收藏</span>
+            </p>
+        </div>
+
+        <div class="mine">
+            <p>
+                <span>全部订单</span>
+                <a href="#">全部订单></a>
+            </p>
+
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-usd"></span>
+                            </dt>
+                            <dd>待付款</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </dt>
+                            <dd>待收货</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </dt>
+                            <dd>待评价</dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>
+                                <span class="glyphicon glyphicon-retweet"></span>
+                            </dt>
+                            <dd>退款/售后</dd>
+                        </dl>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+{% endblock %}
