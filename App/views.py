@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -94,7 +95,15 @@ def cart(request):
 
 
 def mine(request):
-    return render(request, 'main/mine.html')
+    user_id = request.session.get('user_id')
+
+    data = {
+        "title": "我的",
+    }
+    if user_id:
+        pass
+
+    return render(request, 'main/mine.html', context=data)
 
 
 def register(request):
@@ -109,7 +118,8 @@ def register(request):
         password = request.POST.get("password")
         icon = request.FILES.get("icon")
 
-        password = hash_str(password)
+        # password = hash_str(password)
+        password = make_password(password)
 
         user = AXFUser()
         user.u_username = username
@@ -132,7 +142,20 @@ def login(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        return HttpResponse("登录成功")
+        user = AXFUser.objects.filter(u_username=username)
+
+        if user.exists():
+            user = user.first()
+
+            if check_password(password, user.u_password):
+                request.session['user_id'] = user.id
+                return redirect(reverse('axf:mine'))
+            else:
+                print('密码错误')
+                return redirect(reverse('axf:login'))
+
+        print('用户名不存在')
+        return redirect(reverse('axf:login'))
 
 
 def check_user(request):

@@ -33,5 +33,19 @@ function check() {
         return false
     }
 
+    var $password = $("#password_input");
+    var password = $password.val().trim();
+    var $password2 = $("#password_confirm_input");
+    var password2 = $password2.val().trim();
+    var $password_info = $("#password_info");
+
+    if (password != password2) {
+        $password_info.html("密码不一致").css("color", "red");
+        return false
+    }else if(password.length < 6) {
+        $password_info.html("密码长度不能小于6位").css("color", "red");
+        return false
+    }
+
     return true
 }
