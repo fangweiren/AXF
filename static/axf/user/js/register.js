@@ -42,10 +42,13 @@ function check() {
     if (password != password2) {
         $password_info.html("密码不一致").css("color", "red");
         return false
-    }else if(password.length < 6) {
+    } else if (password.length < 6) {
         $password_info.html("密码长度不能小于6位").css("color", "red");
         return false
     }
+
+    $password.val(md5(password));
+    $password2.val(md5(password));
 
     return true
 }
