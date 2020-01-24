@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^checkuser/', views.check_user, name='check_user'),
 
     url(r'^logout/', views.logout, name='logout'),
+
+    url(r'^activate/', views.activate, name='activate'),
 ]

@@ -136,6 +136,16 @@ INTERNAL_IPS = [
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'fangweiren888@163.com'
-EMAIL_HOST_PASSWORD = 'wan4421228'
+EMAIL_HOST_PASSWORD = '27a16t'
 SERVER_HOST = '192.168.37.133'
 SERVER_PORT = '8000'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

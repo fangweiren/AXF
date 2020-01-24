@@ -1,4 +1,7 @@
+import uuid
+
 from django.contrib.auth.hashers import make_password, check_password
+from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -134,7 +137,8 @@ def register(request):
         user.u_icon = icon
         user.save()
 
-        u_token = ''
+        u_token = uuid.uuid4().hex
+        cache.set(u_token, user.id, timeout=60*60*24)
 
         send_email_activate(username, email, u_token)
 
@@ -189,3 +193,14 @@ def check_user(request):
 def logout(request):
     request.session.flush()
     return redirect(reverse('axf:mine'))
+
+
+def activate(request):
+    u_token = request.GET.get('u_token')
+    user_id = cache.get(u_token)
+    if user_id:
+        user = AXFUser.objects.get(pk=user_id)
+        user.is_active = True
+        user.save()
+        return redirect(reverse('axf:login'))
+    return None
