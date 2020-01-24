@@ -7,7 +7,7 @@ from AXF.settings import MEDIA_KEY_PREFIX
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser
 from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
     HTTP_USER_EXISTS, HTTP_OK
-from App.views_helper import hash_str
+from App.views_helper import hash_str, send_email_activate
 
 
 def home(request):
@@ -133,6 +133,10 @@ def register(request):
         user.u_password = password
         user.u_icon = icon
         user.save()
+
+        u_token = ''
+
+        send_email_activate(username, email, u_token)
 
         return redirect(reverse('axf:login'))
 

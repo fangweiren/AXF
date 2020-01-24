@@ -132,3 +132,10 @@ INTERNAL_IPS = [
     'localhost',
     '192.168.37.1',
 ]
+
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'fangweiren888@163.com'
+EMAIL_HOST_PASSWORD = 'wan4421228'
+SERVER_HOST = '192.168.37.133'
+SERVER_PORT = '8000'
