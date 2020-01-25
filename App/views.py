@@ -150,6 +150,10 @@ def login(request):
         data = {
             "title": "登录",
         }
+        error_message = request.session.get('error_message')
+        if error_message:
+            del request.session['error_message']
+            data['error_message'] = error_message
         return render(request, 'user/login.html', context=data)
 
     elif request.method == 'POST':
@@ -162,13 +166,21 @@ def login(request):
             user = user.first()
 
             if check_password(password, user.u_password):
-                request.session['user_id'] = user.id
-                return redirect(reverse('axf:mine'))
+
+                if user.is_active:
+                    request.session['user_id'] = user.id
+                    return redirect(reverse('axf:mine'))
+                else:
+                    print('用户未激活')
+                    request.session['error_message'] = 'User not activated'
+                    return redirect(reverse('axf:login'))
             else:
                 print('密码错误')
+                request.session['error_message'] = 'Password is wrong'
                 return redirect(reverse('axf:login'))
 
         print('用户名不存在')
+        request.session['error_message'] = 'User is not exist'
         return redirect(reverse('axf:login'))
 
 
@@ -199,8 +211,11 @@ def activate(request):
     u_token = request.GET.get('u_token')
     user_id = cache.get(u_token)
     if user_id:
+        # 只能激活一次
+        cache.delete(u_token)
+
         user = AXFUser.objects.get(pk=user_id)
         user.is_active = True
         user.save()
         return redirect(reverse('axf:login'))
-    return None
+    return render(request, 'user/activate_fail.html')
