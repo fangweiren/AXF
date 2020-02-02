@@ -52,6 +52,13 @@ $(function () {
     });
 
     $(".addShopping").click(function () {
-        console.log('add')
+        var $add = $(this);
+        var goodsid = $add.attr('goodsid');
+        $.get('/axf/addtocart/', {"goodsid": goodsid}, function (data) {
+            console.log(data);
+            if (data.status == 302) {
+                window.open('/axf/login', target = '_self');
+            }
+        })
     });
 });

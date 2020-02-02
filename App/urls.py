@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^logout/', views.logout, name='logout'),
 
     url(r'^activate/', views.activate, name='activate'),
+
+    url(r'^addtocart/', views.add_to_cart, name='add_to_cart'),
 ]

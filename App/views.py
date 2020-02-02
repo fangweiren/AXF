@@ -219,3 +219,12 @@ def activate(request):
         user.save()
         return redirect(reverse('axf:login'))
     return render(request, 'user/activate_fail.html')
+
+
+def add_to_cart(request):
+    goodsid = request.GET.get('goodsid')
+
+    data = {
+
+    }
+    return JsonResponse(data=data)
