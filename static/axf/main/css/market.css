@@ -238,8 +238,8 @@ li > section > span {
     line-height: 0.4rem;
 }
 
-.subShopping {
-    font-size: 0.8rem;
+.subShopping, .addShopping {
+    font-size: 0.4rem;
     font-weight: 100;
 }
 

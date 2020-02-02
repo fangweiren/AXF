@@ -46,4 +46,12 @@ $(function () {
         var $span = $sort_rules.find("span").find("span");
         $span.removeClass("glyphicon glyphicon-chevron-up").addClass("glyphicon glyphicon-chevron-down");
     });
+
+    $(".subShopping").click(function () {
+        console.log('sub')
+    });
+
+    $(".addShopping").click(function () {
+        console.log('add')
+    });
 });
