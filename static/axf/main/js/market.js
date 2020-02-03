@@ -48,7 +48,19 @@ $(function () {
     });
 
     $(".subShopping").click(function () {
-        console.log('sub')
+        var $sub = $(this);
+        var goodsid = $sub.attr('goodsid');
+        $.get('/axf/carttosub/', {"goodsid": goodsid}, function (data) {
+            console.log(data);
+            if (data.status == 302) {
+                window.open('/axf/login', target = '_self');
+            } else if (data.status == 200) {
+                $sub.next('span').html(data.c_goods_num);
+                if (data.c_goods_num == 0) {
+                    $sub.attr("disabled", true);
+                }
+            }
+        })
     });
 
     $(".addShopping").click(function () {
@@ -58,6 +70,11 @@ $(function () {
             console.log(data);
             if (data.status == 302) {
                 window.open('/axf/login', target = '_self');
+            } else if (data.status == 200) {
+                $add.prev('span').html(data.c_goods_num);
+                if (data.c_goods_num != 0) {
+                    $(".subShopping").attr("disabled", false);
+                }
             }
         })
     });

@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^activate/', views.activate, name='activate'),
 
     url(r'^addtocart/', views.add_to_cart, name='add_to_cart'),
+    url(r'^carttosub/', views.cart_to_sub, name='cart_to_sub'),
 ]

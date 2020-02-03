@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from AXF.settings import MEDIA_KEY_PREFIX
-from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser
+from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser, Cart
 from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
     HTTP_USER_EXISTS, HTTP_OK
 from App.views_helper import hash_str, send_email_activate
@@ -95,7 +95,14 @@ def market_with_params(request, typeid, childcid, order_rule):
 
 
 def cart(request):
-    return render(request, 'main/cart.html')
+    carts = Cart.objects.filter(c_user=request.user)
+
+    data = {
+        "title": "购物车",
+        "carts": carts
+    }
+
+    return render(request, 'main/cart.html', context=data)
 
 
 def mine(request):
@@ -110,7 +117,6 @@ def mine(request):
         data["is_login"] = True
         data["username"] = user.u_username
         data["icon"] = MEDIA_KEY_PREFIX + user.u_icon.url
-
 
     return render(request, 'main/mine.html', context=data)
 
@@ -138,7 +144,7 @@ def register(request):
         user.save()
 
         u_token = uuid.uuid4().hex
-        cache.set(u_token, user.id, timeout=60*60*24)
+        cache.set(u_token, user.id, timeout=60 * 60 * 24)
 
         send_email_activate(username, email, u_token)
 
@@ -223,8 +229,42 @@ def activate(request):
 
 def add_to_cart(request):
     goodsid = request.GET.get('goodsid')
+    carts = Cart.objects.filter(c_user=request.user).filter(c_goods_id=goodsid)
+    if carts.exists():
+        cart_obj = carts.first()
+        cart_obj.c_goods_num = cart_obj.c_goods_num + 1
+    else:
+        cart_obj = Cart()
+        cart_obj.c_user = request.user
+        cart_obj.c_goods_id = goodsid
+
+    cart_obj.save()
 
     data = {
+        "status": 200,
+        "msg": "add success",
+        "c_goods_num": cart_obj.c_goods_num
+    }
+    return JsonResponse(data=data)
 
+
+def cart_to_sub(request):
+    goodsid = request.GET.get('goodsid')
+    carts = Cart.objects.filter(c_user=request.user).filter(c_goods_id=goodsid)
+    cart_obj = carts.first()
+    print(cart_obj)
+    if carts.exists():
+        cart_obj = carts.first()
+        if cart_obj.c_goods_num != 0:
+            cart_obj.c_goods_num = cart_obj.c_goods_num - 1
+    else:
+        pass
+
+    cart_obj.save()
+
+    data = {
+        "status": 200,
+        "msg": "sub success",
+        "c_goods_num": cart_obj.c_goods_num
     }
     return JsonResponse(data=data)

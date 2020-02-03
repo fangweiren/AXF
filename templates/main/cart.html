@@ -5,3 +5,30 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'axf/main/css/cart.css' %}">
 {% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h3>购物车</h3>
+        <div class="full">
+            <section>
+                <ul>
+                    <li>收&emsp;货&emsp;人：Jack</li>
+                    <li>电&emsp;&emsp;&emsp;话：1234567890</li>
+                    <li>地&emsp;&emsp;&emsp;址：帝都</li>
+                </ul>
+
+                <div class="bill">
+                    <p>闪送超市</p>
+                    <p>0元起送;满30元免运费;22:00前可送达</p>
+                    <a href="#">凑单专区</a>
+                </div>
+
+                <div class="delivery">
+                    <span>收货时间</span>
+                    <span>一小时内送达</span>
+                    <a href="#">可预订&gt;</a>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
