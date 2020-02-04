@@ -58,9 +58,9 @@
                             </a>
 
                             <section>
-                                <button>-</button>
+                                <button class="subShopping">-</button>
                                 <span>{{ cart.c_goods_num }}</span>
-                                <button>+</button>
+                                <button class="addShopping">+</button>
                             </section>
                         </li>
                     {% endfor %}
@@ -68,8 +68,14 @@
                 </ul>
 
                 <div class="payTheBill">
-                    <div class="confirm">
-                        <span><span></span></span>
+                    <div class="all_select">
+                        <span>
+                            {% if is_all_select %}
+                                <span>√</span>
+                            {% else %}
+                                <span></span>
+                            {% endif %}
+                        </span>
                     </div>
 
                     <p>

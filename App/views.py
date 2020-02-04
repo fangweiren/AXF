@@ -97,9 +97,12 @@ def market_with_params(request, typeid, childcid, order_rule):
 def cart(request):
     carts = Cart.objects.filter(c_user=request.user)
 
+    is_all_select = not carts.filter(c_is_select=False).exists()
+
     data = {
         "title": "购物车",
-        "carts": carts
+        "carts": carts,
+        "is_all_select": is_all_select,
     }
 
     return render(request, 'main/cart.html', context=data)
@@ -278,6 +281,38 @@ def change_cart_state(request):
         "status": 200,
         "msg": "change success",
         "c_is_select": cart_obj.c_is_select,
+    }
+
+    return JsonResponse(data=data)
+
+
+def sub_Shopping(request):
+    cartid = request.GET.get('cartid')
+    cart_obj = Cart.objects.get(pk=cartid)
+    data = {
+        "status": 200,
+        "msg": "sub success",
+    }
+    if cart_obj.c_goods_num > 1:
+        cart_obj.c_goods_num = cart_obj.c_goods_num - 1
+        cart_obj.save()
+        data['c_goods_num'] = cart_obj.c_goods_num
+    else:
+        cart_obj.delete()
+        data['c_goods_num'] = 0
+
+    return JsonResponse(data=data)
+
+
+def add_Shopping(request):
+    cartid = request.GET.get('cartid')
+    cart_obj = Cart.objects.get(pk=cartid)
+    cart_obj.c_goods_num = cart_obj.c_goods_num + 1
+    cart_obj.save()
+    data = {
+        "status": 200,
+        "msg": "sub success",
+        "c_goods_num": cart_obj.c_goods_num,
     }
 
     return JsonResponse(data=data)
