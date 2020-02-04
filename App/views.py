@@ -252,19 +252,32 @@ def cart_to_sub(request):
     goodsid = request.GET.get('goodsid')
     carts = Cart.objects.filter(c_user=request.user).filter(c_goods_id=goodsid)
     cart_obj = carts.first()
-    print(cart_obj)
     if carts.exists():
         cart_obj = carts.first()
-        if cart_obj.c_goods_num != 0:
-            cart_obj.c_goods_num = cart_obj.c_goods_num - 1
+        cart_obj.c_goods_num = cart_obj.c_goods_num - 1
+        cart_obj.save()
+        if cart_obj.c_goods_num == 0:
+            cart_obj.delete()
     else:
         pass
-
-    cart_obj.save()
 
     data = {
         "status": 200,
         "msg": "sub success",
         "c_goods_num": cart_obj.c_goods_num
     }
+    return JsonResponse(data=data)
+
+
+def change_cart_state(request):
+    cartid = request.GET.get('cartid')
+    cart_obj = Cart.objects.get(pk=cartid)
+    cart_obj.c_is_select = not cart_obj.c_is_select
+    cart_obj.save()
+    data = {
+        "status": 200,
+        "msg": "change success",
+        "c_is_select": cart_obj.c_is_select,
+    }
+
     return JsonResponse(data=data)

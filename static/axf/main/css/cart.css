@@ -189,7 +189,7 @@ h3 {
 }
 
 .menuList > a > p {
-    width: 75%;
+    width: 70%;
     height: 1rem;
     float: right;
     overflow: hidden;
@@ -239,7 +239,7 @@ h3 {
 
 .payTheBill .confirm {
     width: 10%;
-    padding-top: 0.5rem;
+    padding-top: 0.4rem;
     padding-left: 0.4rem;
 }
 

@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{% static 'axf/main/css/cart.css' %}">
 {% endblock %}
 
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/main/js/cart.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div id="cart">
         <h3>购物车</h3>
@@ -27,6 +32,52 @@
                     <span>收货时间</span>
                     <span>一小时内送达</span>
                     <a href="#">可预订&gt;</a>
+                </div>
+
+                <div class="delivery">
+                    <span>备注</span>
+                    <input type="text" placeholder="可输入100字以内的特殊要求">
+                </div>
+
+                <ul>
+                    {% for cart in carts %}
+                        <li class="menuList" cartid="{{ cart.id }}">
+                            <div class="confirm">
+                            <span>
+                                {% if cart.c_is_select %}
+                                    <span>√</span>
+                                {% else %}
+                                    <span></span>
+                                {% endif %}
+                            </span>
+                            </div>
+                            <a href="#">
+                                <img src="{{ cart.c_goods.productimg }}" alt="{{ cart.c_goods.productlongname }}">
+                                <p>{{ cart.c_goods.productlongname }}</p>
+                                <p class="presentPrice">{{ cart.c_goods.price }}</p>
+                            </a>
+
+                            <section>
+                                <button>-</button>
+                                <span>{{ cart.c_goods_num }}</span>
+                                <button>+</button>
+                            </section>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+
+                <div class="payTheBill">
+                    <div class="confirm">
+                        <span><span></span></span>
+                    </div>
+
+                    <p>
+                        <span>全选</span>
+                        <span>共计：</span>
+                        <span>0</span>
+                    </p>
+                    <a href="#">下单</a>
                 </div>
             </section>
         </div>
