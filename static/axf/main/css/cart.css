@@ -146,7 +146,7 @@ h3 {
     position: relative;
 }
 
-.confirm, all_select {
+.confirm, .all_select {
     padding: 0.95rem 0;
     width: 15%;
     height: 2.5rem;
@@ -262,7 +262,7 @@ h3 {
     font-size: 0.35rem;
 }
 
-.payTheBill > a {
+.payTheBill > span {
     background: yellow;
     position: absolute;
     right: 0;

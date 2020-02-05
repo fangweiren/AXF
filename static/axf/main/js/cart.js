@@ -6,6 +6,7 @@ $(function () {
 
         $.getJSON('/axf/changecartstate/', {'cartid': cartid}, function (data) {
             if (data.status === 200) {
+                $("#total_price").html(data.total_price);
                 if (data.c_is_select) {
                     $confirm.find('span').find('span').html('√')
                 } else {
@@ -27,6 +28,7 @@ $(function () {
 
         $.getJSON('/axf/subShopping/', {'cartid': cartid}, function (data) {
             if (data.status === 200) {
+                $("#total_price").html(data.total_price);
                 if (data.c_goods_num > 0) {
                     var $span = $sub.next('span');
                     $span.html(data.c_goods_num);
@@ -44,6 +46,7 @@ $(function () {
 
         $.getJSON('/axf/addShopping/', {'cartid': cartid}, function (data) {
             if (data.status === 200) {
+                $("#total_price").html(data.total_price);
                 var $span = $add.prev('span');
                 $span.html(data.c_goods_num);
             }
@@ -68,6 +71,7 @@ $(function () {
         if (unselect_list.length > 0) {
             $.getJSON('/axf/allselect/', {'cart_list': unselect_list.join('#')}, function (data) {
                 if (data.status === 200) {
+                    $("#total_price").html(data.total_price);
                     $(".confirm").find('span').find('span').html("√");
                     $all_select.find('span').find('span').html("√");
                 }
@@ -76,6 +80,7 @@ $(function () {
             if (select_list.length > 0) {
                 $.getJSON('/axf/allselect/', {'cart_list': select_list.join('#')}, function (data) {
                     if (data.status === 200) {
+                        $("#total_price").html(data.total_price);
                         $(".confirm").find('span').find('span').html("");
                         $all_select.find('span').find('span').html("");
                     }
@@ -83,4 +88,28 @@ $(function () {
             }
         }
     });
-});
+
+    $("#make_order").click(function () {
+        var select_list = [];
+        var unselect_list = [];
+
+        $(".confirm").each(function () {
+            var $confirm = $(this);
+            var cartid = $confirm.parents('li').attr('cartid');
+            if ($confirm.find('span').find('span').html().trim()) {
+                select_list.push(cartid);
+            } else {
+                unselect_list.push(cartid);
+            }
+        });
+
+        if (select_list.length === 0) {
+            return
+        }
+
+        $.getJSON('/axf/makeorder/', function (data) {
+            console.log(data);
+        })
+    });
+})
+;

@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^addShopping/', views.add_Shopping, name='add_Shopping'),
 
     url(r'^allselect/', views.all_select, name='all_select'),
+
+    url(r'^makeorder/', views.make_order, name='make_order'),
 ]
