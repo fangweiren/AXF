@@ -277,10 +277,14 @@ def change_cart_state(request):
     cart_obj = Cart.objects.get(pk=cartid)
     cart_obj.c_is_select = not cart_obj.c_is_select
     cart_obj.save()
+
+    is_all_select = not Cart.objects.filter(c_is_select=False).exists()
+
     data = {
         "status": 200,
         "msg": "change success",
         "c_is_select": cart_obj.c_is_select,
+        "is_all_select": is_all_select,
     }
 
     return JsonResponse(data=data)
@@ -313,6 +317,23 @@ def add_Shopping(request):
         "status": 200,
         "msg": "sub success",
         "c_goods_num": cart_obj.c_goods_num,
+    }
+
+    return JsonResponse(data=data)
+
+
+def all_select(request):
+    cart_list = request.GET.get('cart_list')
+    cart_list = cart_list.split('#')
+    carts = Cart.objects.filter(id__in=cart_list)
+
+    for cart_obj in carts:
+        cart_obj.c_is_select = not cart_obj.c_is_select
+        cart_obj.save()
+
+    data = {
+        "status": 200,
+        "msg": "ok"
     }
 
     return JsonResponse(data=data)

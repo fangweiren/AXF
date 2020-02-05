@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^changecartstate/', views.change_cart_state, name='change_cart_state'),
     url(r'^subShopping/', views.sub_Shopping, name='sub_Shopping'),
     url(r'^addShopping/', views.add_Shopping, name='add_Shopping'),
+
+    url(r'^allselect/', views.all_select, name='all_select'),
 ]
