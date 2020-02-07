@@ -367,3 +367,15 @@ def make_order(request):
     }
 
     return JsonResponse(data=data)
+
+
+def order_detail(request):
+    orderid = request.GET.get('orderid')
+    order = Order.objects.get(pk=orderid)
+
+    data = {
+        "title": "订单详情",
+        "order": order,
+    }
+
+    return render(request, 'order/order_detail.html', context=data)

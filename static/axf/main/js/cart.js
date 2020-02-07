@@ -109,6 +109,9 @@ $(function () {
 
         $.getJSON('/axf/makeorder/', function (data) {
             console.log(data);
+            if (data['status'] === 200) {
+                window.open('/axf/orderdetail/?orderid=' + data['order_id'], target = '_self')
+            }
         })
     });
 })
