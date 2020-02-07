@@ -19,9 +19,17 @@
                     <ul class="order" orderid="{{ order.id }}">
                         <h6>订单编号：{{ order.id }}</h6>
                         {% for ordergoods in order.ordergoods_set.all %}
-                            <li>
-                                <img src="{{ ordergoods.o_goods.productimg }}"
-                                     alt="{{ ordergoods.o_goods.productlongname }}">
+                            <li class="menuList">
+                                <a href="#">
+                                    <img src="{{ ordergoods.o_goods.productimg }}"
+                                         alt="{{ ordergoods.o_goods.productlongname }}">
+                                    <p>{{ ordergoods.o_goods.productlongname }}</p>
+                                    <p class="presentPrice">{{ ordergoods.o_goods.price }}</p>
+                                </a>
+
+                                <section>
+                                    <span>{{ ordergoods.o_goods_nums }}</span>
+                                </section>
                             </li>
                         {% endfor %}
                     </ul>

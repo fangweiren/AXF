@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^makeorder/', views.make_order, name='make_order'),
     url(r'^orderdetail/', views.order_detail, name='order_detail'),
     url(r'^orderlistnotpay/', views.order_list_not_pay, name='order_list_not_pay'),
+
+    url(r'^payed/', views.payed, name='payed'),
 ]

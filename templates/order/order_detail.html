@@ -31,6 +31,6 @@
         </ul>
 
         <h6 class="totalprice">总价：<span class="total_price">{{ order.o_price }}</span></h6>
-        <button id="alipay" class="btn btn-success btn-block">支付</button>
+        <button orderid="{{ order.id }}" id="alipay" class="btn btn-success btn-block">支付</button>
     </div>
 {% endblock %}
