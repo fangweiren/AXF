@@ -1,0 +1,33 @@
+{% extends 'base_order.html' %}
+{% load staticfiles %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'axf/order/css/order_detail.css' %}">
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/order/js/order_list_not_pay.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="order_list_not_pay" class="container">
+        <ol>
+            {% for order in orders %}
+                <li>
+                    <ul class="order" orderid="{{ order.id }}">
+                        <h6>订单编号：{{ order.id }}</h6>
+                        {% for ordergoods in order.ordergoods_set.all %}
+                            <li>
+                                <img src="{{ ordergoods.o_goods.productimg }}"
+                                     alt="{{ ordergoods.o_goods.productlongname }}">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+
+        </ol>
+    </div>
+{% endblock %}

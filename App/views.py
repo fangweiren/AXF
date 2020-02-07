@@ -10,7 +10,7 @@ from AXF.settings import MEDIA_KEY_PREFIX
 from App.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, AXFUser, Cart, Order, \
     OrderGoods
 from App.views_constant import ALL_TYPE, ORDER_TOTAL, ORDER_PRICE_UP, ORDER_PRICE_DOWN, ORDER_SALE_UP, ORDER_SALE_DOWN, \
-    HTTP_USER_EXISTS, HTTP_OK
+    HTTP_USER_EXISTS, HTTP_OK, ORDER_STATUS_NOT_PAY, ORDER_STATUS_NOT_RECEIVE
 from App.views_helper import hash_str, send_email_activate, get_total_price
 
 
@@ -122,6 +122,8 @@ def mine(request):
         data["is_login"] = True
         data["username"] = user.u_username
         data["icon"] = MEDIA_KEY_PREFIX + user.u_icon.url
+        data["order_not_pay"] = Order.objects.filter(o_user=user).filter(o_status=ORDER_STATUS_NOT_PAY).count()
+        data["order_not_receive"] = Order.objects.filter(o_user=user).filter(o_status=ORDER_STATUS_NOT_RECEIVE).count()
 
     return render(request, 'main/mine.html', context=data)
 
@@ -379,3 +381,14 @@ def order_detail(request):
     }
 
     return render(request, 'order/order_detail.html', context=data)
+
+
+def order_list_not_pay(request):
+    orders = Order.objects.filter(o_user=request.user)
+
+    data = {
+        "title": "订单列表",
+        "orders": orders,
+    }
+
+    return render(request, 'order/order_list_not_pay.html', context=data)

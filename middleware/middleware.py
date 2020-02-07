@@ -14,6 +14,7 @@ REQUIRE_LOGIN_JSON = [
 REQUIRE_LOGIN = [
     '/axf/cart/',
     '/axf/order_detail/',
+    '/axf/orderlistnotpay/',
 ]
 
 

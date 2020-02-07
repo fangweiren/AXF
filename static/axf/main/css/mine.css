@@ -127,8 +127,19 @@ footer .mine_icon dd {
     justify-content: space-around;
 }
 
+.mine #nav ul li, .mine menu ul li {
+    position: relative;
+}
+
 .mine #nav ul li dl, .mine menu ul li dl {
     text-align: center;
+}
+
+.mine #nav ul li > span {
+    position: absolute;
+    right: 0;
+    color: whitesmoke;
+    background-color: red;
 }
 
 .mine #nav ul li dl dt, .mine menu ul li dl dt {
